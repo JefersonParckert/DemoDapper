@@ -22,6 +22,24 @@ namespace DemoDapper.Repositorio
             return clientes;
         }
 
+        public int InserirCliente(Cliente cliente)
+        {
+            string insert = "INSERT INTO CLIENTE (ID, Nome, DataNascimento, CPF) VALUES(@Id, @Nome, @DataNascimento, @CPF)";
+            using (var connection = new SqlConnection(GetDbConnection()))
+            {
+                return connection.Execute(insert, cliente);
+            }
+        }
+
+        public int RemoverCliente(Cliente cliente)
+        {
+            string delete = "DELETE FROM CLIENTE WHERE ID = @Id";
+            using (var connection = new SqlConnection(GetDbConnection()))
+            {
+                return connection.Execute(delete, cliente);
+            }
+        }
+
         private string GetDbConnection()
         {
             var builder = new ConfigurationBuilder()
